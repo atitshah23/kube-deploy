@@ -7,3 +7,6 @@
 
 # .tfvars files
 *.tfvars
+
+#kubespray folder
+*/kubespray/*
