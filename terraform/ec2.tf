@@ -9,14 +9,14 @@ resource "aws_instance" "kube-master" {
   instance_type = "${var.aws_instance_type}"
   key_name = "${var.aws_key_name}"
   tags {
-    Name = "kubernetes-${var.aws_cluster_name}-master",
+    Name = "${var.aws_cluster_name}-master",
     Role = "master"
   }
   count = 1
   vpc_security_group_ids = ["${var.aws_security_group_id}"]
 
 
-  provisioner "remote-exec" {
+  /*provisioner "remote-exec" {
    inline = [ "sudo apt-get update",
               "sudo apt-get install -y software-properties-common python-pip"
             ]
@@ -28,7 +28,7 @@ resource "aws_instance" "kube-master" {
     agent       =  "false"
     private_key = "${file(var.ssh_key_private)}"
     }
-  }
+  }*/
 
 }
 
@@ -37,14 +37,14 @@ resource "aws_instance" "kube-node" {
   instance_type = "${var.aws_instance_type}"
   key_name = "${var.aws_key_name}"
   tags {
-    Name = "kubernetes-${var.aws_cluster_name}-node",
-    Role = "woker"
+    Name = "${var.aws_cluster_name}-node",
+    Role = "worker"
   }
   count = 1
   vpc_security_group_ids = ["${var.aws_security_group_id}"]
 
 
-  provisioner "remote-exec" {
+  /*provisioner "remote-exec" {
    inline = [ "sudo apt-get update",
               "sudo apt-get install -y software-properties-common python-pip"
             ]
@@ -56,7 +56,7 @@ resource "aws_instance" "kube-node" {
     agent       =  "false"
     private_key = "${file(var.ssh_key_private)}"
     }
-  }
+  }*/
 }
 
 
@@ -65,14 +65,14 @@ resource "aws_instance" "kube-etcd" {
   instance_type = "${var.aws_instance_type}"
   key_name = "${var.aws_key_name}"
   tags {
-    Name = "kubernetes-${var.aws_cluster_name}-etcd",
+    Name = "${var.aws_cluster_name}-etcd",
     Role = "etcd"
   }
   count = 1
   vpc_security_group_ids = ["${var.aws_security_group_id}"]
 
 
-  provisioner "remote-exec" {
+  /*provisioner "remote-exec" {
    inline = [ "sudo apt-get update",
               "sudo apt-get install -y software-properties-common python-pip"
             ]
@@ -84,5 +84,5 @@ resource "aws_instance" "kube-etcd" {
     agent       =  "false"
     private_key = "${file(var.ssh_key_private)}"
     }
-  }
+  }*/
 }

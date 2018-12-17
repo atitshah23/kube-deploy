@@ -18,7 +18,7 @@ variable "aws_security_group_id"{
 
 variable "aws_cluster_name" {
   description = "Name of AWS Cluster"
-  default = "KubeCluster"
+  default = "kubecluster"
 }
 
 variable "aws_region" {
@@ -38,7 +38,7 @@ variable "aws_instance_type" {
 
 variable "inventory_file" {
   description = "Where to store the generated inventory file"
-  default = "inventory.cfg"
+  default = "kubespray/inventory.cfg"
 }
 
 variable "public_key_path" {
