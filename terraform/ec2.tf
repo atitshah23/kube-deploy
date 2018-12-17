@@ -7,7 +7,7 @@ resource "aws_key_pair" "kube-deploy-kp" {
 resource "aws_instance" "kube-master" {
   ami = "${var.aws_ami_id}"
   instance_type = "${var.aws_instance_type}"
-  key_name = "${aws_key_pair.kube-deploy-kp.id}"
+  key_name = "${var.aws_key_name}"
   tags {
     Name = "kubernetes-${var.aws_cluster_name}-master",
     Role = "master"
@@ -25,6 +25,7 @@ resource "aws_instance" "kube-master" {
     host        = "${aws_instance.kube-master.public_ip}"
     type        = "ssh"
     user        = "ubuntu"
+    agent       =  "false"
     private_key = "${file(var.ssh_key_private)}"
     }
   }
@@ -34,7 +35,7 @@ resource "aws_instance" "kube-master" {
 resource "aws_instance" "kube-node" {
   ami = "${var.aws_ami_id}"
   instance_type = "${var.aws_instance_type}"
-  key_name = "${aws_key_pair.kube-deploy-kp.id}"
+  key_name = "${var.aws_key_name}"
   tags {
     Name = "kubernetes-${var.aws_cluster_name}-node",
     Role = "woker"
@@ -52,6 +53,7 @@ resource "aws_instance" "kube-node" {
     host        = "${aws_instance.kube-node.public_ip}"
     type        = "ssh"
     user        = "ubuntu"
+    agent       =  "false"
     private_key = "${file(var.ssh_key_private)}"
     }
   }
@@ -61,7 +63,7 @@ resource "aws_instance" "kube-node" {
 resource "aws_instance" "kube-etcd" {
   ami = "${var.aws_ami_id}"
   instance_type = "${var.aws_instance_type}"
-  key_name = "${aws_key_pair.kube-deploy-kp.id}"
+  key_name = "${var.aws_key_name}"
   tags {
     Name = "kubernetes-${var.aws_cluster_name}-etcd",
     Role = "etcd"
@@ -79,6 +81,7 @@ resource "aws_instance" "kube-etcd" {
     host        = "${aws_instance.kube-etcd.public_ip}"
     type        = "ssh"
     user        = "ubuntu"
+    agent       =  "false"
     private_key = "${file(var.ssh_key_private)}"
     }
   }

@@ -23,10 +23,12 @@ resource "null_resource" "inventories" {
 
 
   provisioner "local-exec" {
-      command = "aws ec2 wait instance-status-ok --instance-ids ${aws_instance.kube-master.id} ${aws_instance.kube-node.id} ${aws_instance.kube-etcd.id}"
+      command = "aws ec2 wait instance-status-ok --instance-ids ${aws_instance.kube-master.id} ${aws_instance.kube-node.id} ${aws_instance.kube-etcd.id} && ansible-playbook -i inventory.cfg kubespray/cluster.yml --flush-cache"
+
+      connection {
+        type  = "ssh"
+        user  = "ubuntu"
+    }
   }
 
-  provisioner "local-exec" {
-      command = "ansible-playbook -i inventory.cfg kubespray/cluster.yml"
-  }
 }
