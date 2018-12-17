@@ -40,3 +40,13 @@ variable "inventory_file" {
   description = "Where to store the generated inventory file"
   default = "inventory.cfg"
 }
+
+variable "public_key_path" {
+ description = "Your public key path"
+ default = "~/.ssh/id_rsa.pub"
+}
+
+variable "ssh_key_private" {
+ description = "Your private key path"
+ default = "~/.ssh/id_rsa"
+}

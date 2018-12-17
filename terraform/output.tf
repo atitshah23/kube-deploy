@@ -3,6 +3,11 @@ output "masters" {
     value = "${join("\n", aws_instance.kube-master.*.private_ip)}"
 }
 
+
+output "masters_id" {
+    value = "${join("\n", aws_instance.kube-master.*.id)}"
+}
+
 output "workers" {
     value = "${join("\n", aws_instance.kube-node.*.private_ip)}"
 }
